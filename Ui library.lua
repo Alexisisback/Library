@@ -849,7 +849,14 @@ end
 
 -- Mobile Button to toggle UI visibility
 local UserInputService = game:GetService("UserInputService")
-local GuiService = game:GetService("GuiService")
+
+-- Check for existing ScreenGui or create a new one
+local screenGui = script.Parent:FindFirstChildOfClass("ScreenGui")
+if not screenGui then
+    screenGui = Instance.new("ScreenGui")
+    screenGui.Name = "MobileToggleGui"
+    screenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+end
 
 local button = Instance.new("TextButton")
 button.Text = "Toggle UI"
@@ -858,11 +865,11 @@ button.Position = UDim2.new(0, 10, 0, 10)
 button.BackgroundTransparency = 0.5
 button.BackgroundColor3 = Color3.new(0, 0, 0)
 button.TextColor3 = Color3.new(1, 1, 1)
-button.Parent = script.Parent
+button.Parent = screenGui
 
 button.MouseButton1Click:Connect(function()
-    local isVisible = not script.Parent.Visible
-    script.Parent.Visible = isVisible
+    local isVisible = not screenGui.Parent.Visible
+    screenGui.Parent.Visible = isVisible
 end)
 
 -- Only show the button on mobile devices
