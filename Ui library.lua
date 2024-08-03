@@ -1,3 +1,39 @@
+local player = game.Players.LocalPlayer
+local playerGui = player:WaitForChild("PlayerGui")
+
+-- Crear la GUI
+local screenGui = Instance.new("ScreenGui")
+screenGui.Name = "LeftAltGui"
+screenGui.Parent = playerGui
+
+-- Crear el botón
+local button = Instance.new("TextButton")
+button.Size = UDim2.new(0, 200, 0, 50)
+button.Position = UDim2.new(0.5, -100, 0.5, -25)
+button.Text = "Ocultar UI"
+button.Parent = screenGui
+
+-- Asegúrate de que `mainKeybind` esté disponible globalmente o localmente
+-- Ejemplo de definición local de `mainKeybind` (debes reemplazarlo con la función real si está en otro lugar)
+local function mainKeybind()
+    local targetUI = playerGui:FindFirstChild("Main")
+    if targetUI then
+        targetUI.Visible = not targetUI.Visible
+    end
+end
+
+-- Conectar el evento de clic del botón a la función
+button.MouseButton1Click:Connect(mainKeybind)
+
+-- Detectar la pulsación de la tecla LeftAlt (en caso de que también se use en PC)
+local UserInputService = game:GetService("UserInputService")
+UserInputService.InputBegan:Connect(function(input, isProcessed)
+    if input.KeyCode == Enum.KeyCode.LeftAlt then
+        mainKeybind()
+    end
+end)
+
+
 if not LPH_OBFUSCATED then
 	LPH_JIT_MAX = function(...) return(...) end;
 	LPH_NO_VIRTUALIZE = function(...) return(...) end;
@@ -845,37 +881,5 @@ function Library:CreateWindow(options)
 	
 	return gui
 end
-
-
--- Mobile Button to toggle UI visibility
-local UserInputService = game:GetService("UserInputService")
-
--- Check for existing ScreenGui or create a new one
-local screenGui = script.Parent:FindFirstChildOfClass("ScreenGui")
-if not screenGui then
-    screenGui = Instance.new("ScreenGui")
-    screenGui.Name = "MobileToggleGui"
-    screenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
-end
-
-local button = Instance.new("TextButton")
-button.Text = "Toggle UI"
-button.Size = UDim2.new(0, 100, 0, 50)
-button.Position = UDim2.new(0, 10, 0, 10)
-button.BackgroundTransparency = 0.5
-button.BackgroundColor3 = Color3.new(0, 0, 0)
-button.TextColor3 = Color3.new(1, 1, 1)
-button.Parent = screenGui
-
-button.MouseButton1Click:Connect(function()
-    local isVisible = not screenGui.Parent.Visible
-    screenGui.Parent.Visible = isVisible
-end)
-
--- Only show the button on mobile devices
-if not UserInputService.TouchEnabled then
-    button.Visible = false
-end
-
 
 return Library
