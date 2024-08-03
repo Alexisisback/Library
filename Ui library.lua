@@ -1,15 +1,3 @@
-
-local UIVisible = true
-
-function toggleUI()
-    UIVisible = not UIVisible
-    for _, child in pairs(game.Players.LocalPlayer.PlayerGui:GetChildren()) do
-        if child:IsA("ScreenGui") then
-            child.Enabled = UIVisible
-        end
-    end
-end
-
 if not LPH_OBFUSCATED then
 	LPH_JIT_MAX = function(...) return(...) end;
 	LPH_NO_VIRTUALIZE = function(...) return(...) end;
@@ -858,11 +846,29 @@ function Library:CreateWindow(options)
 	return gui
 end
 
-return Library
 
-local ToggleButton = Instance.new("TextButton", game.Players.LocalPlayer.PlayerGui)
-ToggleButton.Text = "Toggle UI"
-ToggleButton.Size = UDim2.new(0, 100, 0, 50)
-ToggleButton.Position = UDim2.new(0, 10, 0, 10)
-ToggleButton.BackgroundColor3 = Color3.new(1, 0, 0)
-ToggleButton.MouseButton1Click:Connect(toggleUI)
+-- Mobile Button to toggle UI visibility
+local UserInputService = game:GetService("UserInputService")
+local GuiService = game:GetService("GuiService")
+
+local button = Instance.new("TextButton")
+button.Text = "Toggle UI"
+button.Size = UDim2.new(0, 100, 0, 50)
+button.Position = UDim2.new(0, 10, 0, 10)
+button.BackgroundTransparency = 0.5
+button.BackgroundColor3 = Color3.new(0, 0, 0)
+button.TextColor3 = Color3.new(1, 1, 1)
+button.Parent = script.Parent
+
+button.MouseButton1Click:Connect(function()
+    local isVisible = not script.Parent.Visible
+    script.Parent.Visible = isVisible
+end)
+
+-- Only show the button on mobile devices
+if not UserInputService.TouchEnabled then
+    button.Visible = false
+end
+
+
+return Library
