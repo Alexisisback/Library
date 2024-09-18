@@ -1579,13 +1579,17 @@ function SectionTable:NewTitle(lrm)
     UICorner.CornerRadius = UDim.new(0, 2)
     UICorner.Parent = FunctionTitle
     
+    local function Set(newText)
+        TextInt.Text = newText
+    end
+
+    local function SetVisible(visible)
+        FunctionTitle.Visible = visible
+    end
+
     return {
-        Set = function(newText)
-            TextInt.Text = newText
-        end,
-        Visible = function(newVisible)
-            FunctionTitle.Visible = newVisible
-        end,
+        Set = Set,
+        Visible = SetVisible
     };
 end;
 
