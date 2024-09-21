@@ -2145,8 +2145,8 @@ end;
 			function SectionTable:NewDropdown(drop)
 				drop = Config(drop,{
 					Title = "Dropdown",
-					Data = {},
-					Default = '',
+					Data = {'One','Two','Three','Four'},
+					Default = 'Two',
 					Callback = function(a)
 
 					end,
@@ -2276,50 +2276,46 @@ end;
 				Button.TextTransparency = 1.000
 
 				local Updater = function(value)
-		drop.Default = value
-		ValueText.Text = tostring(value)
-		drop.Callback(value)
-	end
-	
-	Button.MouseButton1Click:Connect(function()
-		WindowTable.Dropdown:Setup(MFrame)
-		
-		WindowTable.Dropdown:Open(drop.Data, drop.Default, function(value)
-			Updater(value)
-			WindowTable.Dropdown:Close()
-		end)
-	end)
-	
-	
-    local UpdateDropdown = function(newData)
-        drop.Data = newData
-        WindowTable.Dropdown:Setup(MFrame)
-        WindowTable.Dropdown:Open(drop.Data, drop.Default, Updater)
-    end
+					drop.Default = value;
+					ValueText.Text = tostring(value);
+					drop.Callback(value);
+				end;
 
-    return {
-        Visible = function(newindx)
-            FunctionDropdown.Visible = newindx
-        end,
-        Value = function(value)
-            ValueText.Text = tostring(value)
-            drop.Callback(value)
-        end,
-        Open = function()
-            WindowTable.Dropdown:Setup(MFrame)
-            WindowTable.Dropdown:Open(drop.Data, drop.Default, Updater)
-        end,
-        Close = function()
-            WindowTable.Dropdown:Close()
-        end,
-        UpdateDropdown = UpdateDropdown
-    };
-end;
+				Button.MouseButton1Click:Connect(function()
+					WindowTable.Dropdown:Setup(MFrame)
 
-			
+					WindowTable.Dropdown:Open(drop.Data,drop.Default,Updater)
+				end)
+
+				return {
+					Visible = function(newindx)
+						FunctionDropdown.Visible = newindx
+					end,
+					Value = function(value)
+						ValueText.Text = tostring(value);
+						drop.Callback(value);
+					end,
+					Open = function(value)
+						WindowTable.Dropdown:Setup(MFrame)
+
+						WindowTable.Dropdown:Open(drop.Data,drop.Default,Updater)
+					end,
+
+					Close = function(value)
+						WindowTable.Dropdown:Close();
+					end,
+					Clear = function()
+						drop.Data = {}
+					end,
+					Set = function(table)
+						drop.Data = table
+					end
+				};
+			end;
+
 			return SectionTable;
 		end;
-		
+
 		return TabTable;
 	end;
 
