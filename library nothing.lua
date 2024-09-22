@@ -155,7 +155,7 @@ function Library.new(config)
 		Title = "UI Library",
 		Description = "discord.gg/BH6pE7jesa",
 		Keybind = Enum.KeyCode.LeftControl,
-		Logo = "http://www.roblox.com/asset/?id=18810965406",
+		Logo = " ",
 		Size = UDim2.new(0.100000001, 445, 0.100000001, 315)
 	});
 
@@ -2643,7 +2643,7 @@ Library.NewAuth = function(conf)
 		local str = conf.Auth(TextBox.Text);
 
 		if str then
-			TextBox.Text = "*/*/*/*/*/*/*/*/*/*/*/*/*/*";
+			TextBox.Text = "Enjoy :)";
 
 			vaid:Fire(id)
 		else
