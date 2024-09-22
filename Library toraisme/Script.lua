@@ -1766,15 +1766,6 @@ function library:Init()
 	return self.base
 end
 
-function library:Open()
-    self.open = true
-    for _, window in next, self.windows do
-        if window.main then
-            window.main.Visible = true
-        end
-    end
-end
-
 function library:Close()
 	if typeof(self.base) ~= "Instance" then end
 	self.open = not self.open
