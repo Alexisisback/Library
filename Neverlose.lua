@@ -130,7 +130,8 @@ function Library:Window(options)
     Body.BackgroundColor3 = Color3.fromRGB(9, 8, 13)
     Body.BorderSizePixel = 0
     Body.Position = UDim2.new(0.465730786, 0, 0.5, 0)
-    Body.Size = UDim2.new(0, 400, 0, 300)
+    Body.Size = UDim2.new(0, 300, 0, 250)
+
 
     bodyCorner.CornerRadius = UDim.new(0, 4)
     bodyCorner.Name = "bodyCorner"
@@ -140,7 +141,8 @@ function Library:Window(options)
     SideBar.Parent = Body
     SideBar.BackgroundColor3 = Color3.fromRGB(26, 36, 48)
     SideBar.BorderSizePixel = 0
-    SideBar.Size = UDim2.new(0, 187, 0, 516)
+    SideBar.Size = UDim2.new(0, 130, 0, 516)
+
 
     sidebarCorner.CornerRadius = UDim.new(0, 4)
     sidebarCorner.Name = "sidebarCorner"
@@ -150,8 +152,8 @@ function Library:Window(options)
     sbLine.Parent = SideBar
     sbLine.BackgroundColor3 = Color3.fromRGB(15, 23, 36)
     sbLine.BorderSizePixel = 0
-    sbLine.Position = UDim2.new(0.99490571, 0, 0, 0)
     sbLine.Size = UDim2.new(0, 3, 0, 516)
+sbLine.Position = UDim2.new(0.97, 0, 0, 0)
 
     TopBar.Name = "TopBar"
     TopBar.Parent = Body
@@ -175,11 +177,11 @@ function Library:Window(options)
     Title.BackgroundTransparency = 1.000
     Title.BorderSizePixel = 0
     Title.Position = UDim2.new(0.0614973232, 0, 0.0213178284, 0)
-    Title.Size = UDim2.new(0, 162, 0, 26)
+    Title.Size = UDim2.new(0, 120, 0, 20)
     Title.Font = Enum.Font.ArialBold
     Title.Text = options.text
     Title.TextColor3 = Color3.fromRGB(234, 239, 245)
-    Title.TextSize = 28.000
+    Title.TextSize = 20.000
     Title.TextWrapped = true
 
     --[[saveBtn.Name = "saveBtn"
@@ -281,12 +283,12 @@ function Library:Window(options)
             tabButton.BackgroundColor3 = Color3.fromRGB(13, 57, 84)
             tabButton.BorderSizePixel = 0
             tabButton.Position = UDim2.new(0.0714285746, 0, 0.402777791, 0)
-            tabButton.Size = UDim2.new(0, 165, 0, 30)
+            tabButton.Size = UDim2.new(0, 130, 0, 25)
             tabButton.AutoButtonColor = false
             tabButton.Font = Enum.Font.GothamSemibold
             tabButton.Text = "         " .. options.text
             tabButton.TextColor3 = Color3.fromRGB(234, 239, 245)
-            tabButton.TextSize = 14.000
+            tabButton.TextSize = 12.000
             tabButton.BackgroundTransparency = 1
             tabButton.TextXAlignment = Enum.TextXAlignment.Left
             tabButton.MouseButton1Click:Connect(function()
@@ -319,7 +321,8 @@ function Library:Window(options)
             tabIcon.BackgroundTransparency = 1.000
             tabIcon.BorderSizePixel = 0
             tabIcon.Position = UDim2.new(0.0408859849, 0, 0.133333355, 0)
-            tabIcon.Size = UDim2.new(0, 21, 0, 21)
+            tabIcon.Size = UDim2.new(0, 18, 0, 18)
+
             tabIcon.Image = options.icon
             tabIcon.ImageColor3 = Color3.fromRGB(43, 154, 198)
 
@@ -331,7 +334,8 @@ function Library:Window(options)
             newPage.BorderSizePixel = 0
             newPage.ClipsDescendants = false
             newPage.Position = UDim2.new(0.021598272, 0, 0.0237068962, 0)
-            newPage.Size = UDim2.new(0, 442, 0, 440)
+            newPage.Size = UDim2.new(0, 300, 0, 400)
+
             newPage.ScrollBarThickness = 4
             newPage.CanvasSize = UDim2.new(0,0,0,0)
 
@@ -362,7 +366,8 @@ function Library:Window(options)
                 sectionFrame.Parent = newPage
                 sectionFrame.BackgroundColor3 = Color3.fromRGB(0, 15, 30)
                 sectionFrame.BorderSizePixel = 0
-                sectionFrame.Size = UDim2.new(0, 215, 0, 134)
+                sectionFrame.Size = UDim2.new(0, 160, 0, 100)
+
 
                 sectionLabel.Name = "sectionLabel"
                 sectionLabel.Parent = sectionFrame
@@ -374,7 +379,7 @@ function Library:Window(options)
                 sectionLabel.Font = Enum.Font.GothamSemibold
                 sectionLabel.Text = "   " .. options.text
                 sectionLabel.TextColor3 = Color3.fromRGB(234, 239, 245)
-                sectionLabel.TextSize = 14.000
+                sectionLabel.TextSize = 12.000
                 sectionLabel.TextXAlignment = Enum.TextXAlignment.Left
 
                 sectionFrameCorner.CornerRadius = UDim.new(0, 4)
@@ -417,12 +422,13 @@ function Library:Window(options)
                     TextButton.BackgroundColor3 = Color3.fromRGB(13, 57, 84)
                     TextButton.BorderSizePixel = 0
                     TextButton.Position = UDim2.new(0.0348837227, 0, 0.355555564, 0)
-                    TextButton.Size = UDim2.new(0, 200, 0, 22)
+                    TextButton.Size = UDim2.new(0, 140, 0, 20)
+
                     TextButton.AutoButtonColor = false
                     TextButton.Text = options.text
                     TextButton.Font = Enum.Font.Gotham
                     TextButton.TextColor3 = Color3.fromRGB(157, 171, 182)
-                    TextButton.TextSize = 14.000
+                    TextButton.TextSize = 12.000
                     TextButton.BackgroundTransparency = 1
                     buttoneffect({frame = TextButton, entered = TextButton})
                     clickEffect({button = TextButton, amount = 5})
