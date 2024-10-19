@@ -2060,15 +2060,17 @@ end;
 				};
 			end;
 			
-function SectionTable:NewMultiSelectDropdown(drop)
+function SectionTable:NewMultiDropdown(drop)
     drop = Config(drop, {
-        Title = "MultiSelect Dropdown",
+        Title = "MultiDropdown",
         Data = {},
         Default = {},
-        Callback = function(a) end,
+        Callback = function(selectedValues) end,
     });
 
-    local MultiSelectDropdown = Instance.new("Frame")
+    local selectedValues = drop.Default or {}
+
+    local FunctionDropdown = Instance.new("Frame")
     local UIAspectRatioConstraint = Instance.new("UIAspectRatioConstraint")
     local TextInt = Instance.new("TextLabel")
     local UIGradient = Instance.new("UIGradient")
@@ -2080,23 +2082,22 @@ function SectionTable:NewMultiSelectDropdown(drop)
     local ValueText = Instance.new("TextLabel")
     local UIGradient_2 = Instance.new("UIGradient")
     local Button = Instance.new("TextButton")
-    local DropdownOpened = false
 
-    MultiSelectDropdown.Name = "MultiSelectDropdown"
-    MultiSelectDropdown.Parent = Section
-    MultiSelectDropdown.BackgroundColor3 = Color3.fromRGB(17, 17, 17)
-    MultiSelectDropdown.BackgroundTransparency = 0.800
-    MultiSelectDropdown.BorderColor3 = Color3.fromRGB(0, 0, 0)
-    MultiSelectDropdown.BorderSizePixel = 0
-    MultiSelectDropdown.Size = UDim2.new(0.949999988, 0, 0.5, 0)
-    MultiSelectDropdown.ZIndex = 17
+    FunctionDropdown.Name = "FunctionDropdown"
+    FunctionDropdown.Parent = Section
+    FunctionDropdown.BackgroundColor3 = Color3.fromRGB(17, 17, 17)
+    FunctionDropdown.BackgroundTransparency = 0.800
+    FunctionDropdown.BorderColor3 = Color3.fromRGB(0, 0, 0)
+    FunctionDropdown.BorderSizePixel = 0
+    FunctionDropdown.Size = UDim2.new(0.949999988, 0, 0.5, 0)
+    FunctionDropdown.ZIndex = 17
 
-    UIAspectRatioConstraint.Parent = MultiSelectDropdown
+    UIAspectRatioConstraint.Parent = FunctionDropdown
     UIAspectRatioConstraint.AspectRatio = 5.000
     UIAspectRatioConstraint.AspectType = Enum.AspectType.ScaleWithParentSize
 
     TextInt.Name = "TextInt"
-    TextInt.Parent = MultiSelectDropdown
+    TextInt.Parent = FunctionDropdown
     TextInt.AnchorPoint = Vector2.new(0.5, 0.5)
     TextInt.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
     TextInt.BackgroundTransparency = 1.000
@@ -2115,18 +2116,22 @@ function SectionTable:NewMultiSelectDropdown(drop)
     TextInt.TextXAlignment = Enum.TextXAlignment.Left
 
     UIGradient.Rotation = 90
-    UIGradient.Transparency = NumberSequence.new{NumberSequenceKeypoint.new(0.00, 0.00), NumberSequenceKeypoint.new(0.84, 0.25), NumberSequenceKeypoint.new(1.00, 1.00)}
+    UIGradient.Transparency = NumberSequence.new {
+        NumberSequenceKeypoint.new(0.00, 0.00),
+        NumberSequenceKeypoint.new(0.84, 0.25),
+        NumberSequenceKeypoint.new(1.00, 1.00)
+    }
     UIGradient.Parent = TextInt
 
     UIStroke.Transparency = 0.950
     UIStroke.Color = Color3.fromRGB(255, 255, 255)
-    UIStroke.Parent = MultiSelectDropdown
+    UIStroke.Parent = FunctionDropdown
 
     UICorner.CornerRadius = UDim.new(0, 2)
-    UICorner.Parent = MultiSelectDropdown
+    UICorner.Parent = FunctionDropdown
 
     MFrame.Name = "MFrame"
-    MFrame.Parent = MultiSelectDropdown
+    MFrame.Parent = FunctionDropdown
     MFrame.AnchorPoint = Vector2.new(0.5, 0.5)
     MFrame.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
     MFrame.BackgroundTransparency = 0.800
@@ -2134,7 +2139,7 @@ function SectionTable:NewMultiSelectDropdown(drop)
     MFrame.BorderSizePixel = 0
     MFrame.ClipsDescendants = true
     MFrame.Position = UDim2.new(0.5, 0, 0.699999988, 0)
-    MFrame.Size = UDim2.new(0.949999988, 0, 0.0, 0) 
+    MFrame.Size = UDim2.new(0.949999988, 0, 0.375, 0)
     MFrame.ZIndex = 18
 
     UICorner_2.CornerRadius = UDim.new(0, 2)
@@ -2155,40 +2160,23 @@ function SectionTable:NewMultiSelectDropdown(drop)
     ValueText.Size = UDim2.new(1, 0, 0.800000012, 0)
     ValueText.ZIndex = 18
     ValueText.Font = Enum.Font.GothamBold
-    ValueText.Text = drop.Default and table.concat(drop.Default, ", ") or "NONE"
+    ValueText.Text = table.concat(selectedValues, ", ") or "NONE"
     ValueText.TextColor3 = Color3.fromRGB(255, 255, 255)
     ValueText.TextScaled = true
     ValueText.TextSize = 14.000
     ValueText.TextTransparency = 0.500
     ValueText.TextWrapped = true
 
-    local function UpdateSelectedValues(value)
-        local found = false
-        for i, v in ipairs(drop.Default) do
-            if v == value then
-                table.remove(drop.Default, i) 
-                found = true
-                break
-            end
-        end
-        if not found then
-            table.insert(drop.Default, value)
-        end
-        ValueText.Text = table.concat(drop.Default, ", ") 
-        drop.Callback(drop.Default)
-    end
-
-    local function ToggleDropdown()
-        DropdownOpened = not DropdownOpened
-        if DropdownOpened then
-            MFrame:TweenSize(UDim2.new(0.949999988, 0, 2, 0), "Out", "Quad", 0.3, true) 
-        else
-            MFrame:TweenSize(UDim2.new(0.949999988, 0, 0, 0), "Out", "Quad", 0.3, true) 
-        end
-    end
+    UIGradient_2.Rotation = 90
+    UIGradient_2.Transparency = NumberSequence.new {
+        NumberSequenceKeypoint.new(0.00, 0.00),
+        NumberSequenceKeypoint.new(0.84, 0.25),
+        NumberSequenceKeypoint.new(1.00, 1.00)
+    }
+    UIGradient_2.Parent = ValueText
 
     Button.Name = "Button"
-    Button.Parent = MultiSelectDropdown
+    Button.Parent = FunctionDropdown
     Button.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
     Button.BackgroundTransparency = 1.000
     Button.BorderColor3 = Color3.fromRGB(0, 0, 0)
@@ -2201,30 +2189,44 @@ function SectionTable:NewMultiSelectDropdown(drop)
     Button.TextSize = 14.000
     Button.TextTransparency = 1.000
 
-    Button.MouseButton1Click:Connect(function()
-        ToggleDropdown()
-    end)
-
-    local UpdateDropdown = function(newData)
-        drop.Data = newData
+    local function updateSelectedValues(newValue)
+        if table.find(selectedValues, newValue) then
+            table.remove(selectedValues, table.find(selectedValues, newValue))
+        else
+            table.insert(selectedValues, newValue)
+        end
+        ValueText.Text = table.concat(selectedValues, ", ") or "NONE"
+        drop.Callback(selectedValues)
     end
+
+    Button.MouseButton1Click:Connect(function()
+        WindowTable.Dropdown:Setup(MFrame)
+        WindowTable.Dropdown:Open(drop.Data, drop.Default, function(value)
+            updateSelectedValues(value)
+        end)
+    end)
 
     return {
         Visible = function(newindx)
-            MultiSelectDropdown.Visible = newindx
+            FunctionDropdown.Visible = newindx
         end,
-        Value = function(value)
-            UpdateSelectedValues(value)
+        Values = function()
+            return selectedValues
         end,
         Open = function()
-            ToggleDropdown()
+            WindowTable.Dropdown:Setup(MFrame)
+            WindowTable.Dropdown:Open(drop.Data, drop.Default, updateSelectedValues)
         end,
         Close = function()
-            ToggleDropdown()
+            WindowTable.Dropdown:Close()
         end,
-        UpdateDropdown = UpdateDropdown
-    };
-end;
+        UpdateDropdown = function(newData)
+            drop.Data = newData
+            WindowTable.Dropdown:Setup(MFrame)
+            WindowTable.Dropdown:Open(drop.Data, drop.Default, updateSelectedValues)
+        end
+    }
+end
 
 			
 function SectionTable:NewTextbox(textbox)
