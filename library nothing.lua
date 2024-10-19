@@ -2201,8 +2201,15 @@ function SectionTable:NewMultiDropdown(drop)
 
     Button.MouseButton1Click:Connect(function()
         WindowTable.Dropdown:Setup(MFrame)
-        WindowTable.Dropdown:Open(drop.Data, drop.Default, function(value)
-            updateSelectedValues(value)
+        WindowTable.Dropdown:Open(drop.Data, selectedValues, function(value)
+            if table.find(selectedValues, value) then
+                table.remove(selectedValues, table.find(selectedValues, value))
+            else
+                table.insert(selectedValues, value)
+            end
+            
+            ValueText.Text = table.concat(selectedValues, ", ") or "NONE"
+            drop.Callback(selectedValues) 
         end)
     end)
 
@@ -2215,7 +2222,17 @@ function SectionTable:NewMultiDropdown(drop)
         end,
         Open = function()
             WindowTable.Dropdown:Setup(MFrame)
-            WindowTable.Dropdown:Open(drop.Data, drop.Default, updateSelectedValues)
+            WindowTable.Dropdown:Open(drop.Data, selectedValues, function(value)
+                -- La misma lógica para manejar la selección en Open
+                if table.find(selectedValues, value) then
+                    table.remove(selectedValues, table.find(selectedValues, value))
+                else
+                    table.insert(selectedValues, value)
+                end
+                
+                ValueText.Text = table.concat(selectedValues, ", ") or "NONE"
+                drop.Callback(selectedValues)
+            end)
         end,
         Close = function()
             WindowTable.Dropdown:Close()
@@ -2223,7 +2240,16 @@ function SectionTable:NewMultiDropdown(drop)
         UpdateDropdown = function(newData)
             drop.Data = newData
             WindowTable.Dropdown:Setup(MFrame)
-            WindowTable.Dropdown:Open(drop.Data, drop.Default, updateSelectedValues)
+            WindowTable.Dropdown:Open(drop.Data, selectedValues, function(value)
+                if table.find(selectedValues, value) then
+                    table.remove(selectedValues, table.find(selectedValues, value))
+                else
+                    table.insert(selectedValues, value)
+                end
+                
+                ValueText.Text = table.concat(selectedValues, ", ") or "NONE"
+                drop.Callback(selectedValues)
+            end)
         end
     }
 end
