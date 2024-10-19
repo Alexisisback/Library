@@ -2060,6 +2060,157 @@ end;
 				};
 			end;
 			
+function SectionTable:NewMultiSelectDropdown(drop)
+    drop = Config(drop, {
+        Title = "MultiSelect Dropdown",
+        Data = {},
+        Default = {},
+        Callback = function(a) end,
+    });
+
+    local MultiSelectDropdown = Instance.new("Frame")
+    local UIAspectRatioConstraint = Instance.new("UIAspectRatioConstraint")
+    local TextInt = Instance.new("TextLabel")
+    local UIGradient = Instance.new("UIGradient")
+    local UIStroke = Instance.new("UIStroke")
+    local UICorner = Instance.new("UICorner")
+    local MFrame = Instance.new("Frame")
+    local UICorner_2 = Instance.new("UICorner")
+    local UIStroke_2 = Instance.new("UIStroke")
+    local ValueText = Instance.new("TextLabel")
+    local UIGradient_2 = Instance.new("UIGradient")
+    local Button = Instance.new("TextButton")
+
+    MultiSelectDropdown.Name = "MultiSelectDropdown"
+    MultiSelectDropdown.Parent = Section
+    MultiSelectDropdown.BackgroundColor3 = Color3.fromRGB(17, 17, 17)
+    MultiSelectDropdown.BackgroundTransparency = 0.800
+    MultiSelectDropdown.BorderColor3 = Color3.fromRGB(0, 0, 0)
+    MultiSelectDropdown.BorderSizePixel = 0
+    MultiSelectDropdown.Size = UDim2.new(0.949999988, 0, 0.5, 0)
+    MultiSelectDropdown.ZIndex = 17
+
+    UIAspectRatioConstraint.Parent = MultiSelectDropdown
+    UIAspectRatioConstraint.AspectRatio = 5.000
+    UIAspectRatioConstraint.AspectType = Enum.AspectType.ScaleWithParentSize
+
+    TextInt.Name = "TextInt"
+    TextInt.Parent = MultiSelectDropdown
+    TextInt.AnchorPoint = Vector2.new(0.5, 0.5)
+    TextInt.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    TextInt.BackgroundTransparency = 1.000
+    TextInt.BorderColor3 = Color3.fromRGB(0, 0, 0)
+    TextInt.BorderSizePixel = 0
+    TextInt.Position = UDim2.new(0.5, 0, 0.200000003, 0)
+    TextInt.Size = UDim2.new(0.949999988, 0, 0.319999993, 0)
+    TextInt.ZIndex = 18
+    TextInt.Font = Enum.Font.GothamBold
+    TextInt.Text = drop.Title
+    TextInt.TextColor3 = Color3.fromRGB(255, 255, 255)
+    TextInt.TextScaled = true
+    TextInt.TextSize = 14.000
+    TextInt.TextTransparency = 0.250
+    TextInt.TextWrapped = true
+    TextInt.TextXAlignment = Enum.TextXAlignment.Left
+
+    UIGradient.Rotation = 90
+    UIGradient.Transparency = NumberSequence.new{NumberSequenceKeypoint.new(0.00, 0.00), NumberSequenceKeypoint.new(0.84, 0.25), NumberSequenceKeypoint.new(1.00, 1.00)}
+    UIGradient.Parent = TextInt
+
+    UIStroke.Transparency = 0.950
+    UIStroke.Color = Color3.fromRGB(255, 255, 255)
+    UIStroke.Parent = MultiSelectDropdown
+
+    UICorner.CornerRadius = UDim.new(0, 2)
+    UICorner.Parent = MultiSelectDropdown
+
+    MFrame.Name = "MFrame"
+    MFrame.Parent = MultiSelectDropdown
+    MFrame.AnchorPoint = Vector2.new(0.5, 0.5)
+    MFrame.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+    MFrame.BackgroundTransparency = 0.800
+    MFrame.BorderColor3 = Color3.fromRGB(0, 0, 0)
+    MFrame.BorderSizePixel = 0
+    MFrame.ClipsDescendants = true
+    MFrame.Position = UDim2.new(0.5, 0, 0.699999988, 0)
+    MFrame.Size = UDim2.new(0.949999988, 0, 0.375, 0)
+    MFrame.ZIndex = 18
+
+    UICorner_2.CornerRadius = UDim.new(0, 2)
+    UICorner_2.Parent = MFrame
+
+    UIStroke_2.Transparency = 0.975
+    UIStroke_2.Color = Color3.fromRGB(255, 255, 255)
+    UIStroke_2.Parent = MFrame
+
+    ValueText.Name = "ValueText"
+    ValueText.Parent = MFrame
+    ValueText.AnchorPoint = Vector2.new(0.5, 0.5)
+    ValueText.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    ValueText.BackgroundTransparency = 1.000
+    ValueText.BorderColor3 = Color3.fromRGB(0, 0, 0)
+    ValueText.BorderSizePixel = 0
+    ValueText.Position = UDim2.new(0.5, 0, 0.5, 0)
+    ValueText.Size = UDim2.new(1, 0, 0.800000012, 0)
+    ValueText.ZIndex = 18
+    ValueText.Font = Enum.Font.GothamBold
+    ValueText.Text = drop.Default and table.concat(drop.Default, ", ") or "NONE"
+    ValueText.TextColor3 = Color3.fromRGB(255, 255, 255)
+    ValueText.TextScaled = true
+    ValueText.TextSize = 14.000
+    ValueText.TextTransparency = 0.500
+    ValueText.TextWrapped = true
+
+    local function UpdateSelectedValues(value)
+        local found = false
+        for i, v in ipairs(drop.Default) do
+            if v == value then
+                table.remove(drop.Default, i) 
+                found = true
+                break
+            end
+        end
+        if not found then
+            table.insert(drop.Default, value) 
+        end
+        ValueText.Text = table.concat(drop.Default, ", ")
+        drop.Callback(drop.Default) 
+    end
+
+    Button.MouseButton1Click:Connect(function()
+        WindowTable.Dropdown:Setup(MFrame)
+        
+        WindowTable.Dropdown:Open(drop.Data, drop.Default, function(value)
+            UpdateSelectedValues(value) 
+        end)
+    end)
+
+    local UpdateDropdown = function(newData)
+        drop.Data = newData
+        WindowTable.Dropdown:Setup(MFrame)
+        WindowTable.Dropdown:Open(drop.Data, drop.Default, UpdateSelectedValues)
+    end
+
+    return {
+        Visible = function(newindx)
+            MultiSelectDropdown.Visible = newindx
+        end,
+        Value = function(value)
+            UpdateSelectedValues(value) 
+        end,
+        Open = function()
+            WindowTable.Dropdown:Setup(MFrame)
+            WindowTable.Dropdown:Open(drop.Data, drop.Default, UpdateSelectedValues)
+        end,
+        Close = function()
+            WindowTable.Dropdown:Close()
+        end,
+        UpdateDropdown = UpdateDropdown
+    };
+end;
+
+
+			
 function SectionTable:NewTextbox(textbox)
     textbox = Config(textbox, {
         Title = "Textbox",
