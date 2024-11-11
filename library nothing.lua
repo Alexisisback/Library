@@ -243,7 +243,7 @@ function Library.new(config)
 		Title = "UI Library",
 		Description = "discord.gg/BH6pE7jesa",
 		Keybind = Enum.KeyCode.LeftControl,
-		Logo = " ",
+		Logo = "http://www.roblox.com/asset/?id=18810965406",
 		Size = UDim2.new(0.100000001, 445, 0.100000001, 315)
 	});
 
@@ -284,29 +284,108 @@ function Library.new(config)
 	WindowTable.WindowToggle = true;
 	WindowTable.Keybind = config.Keybind;
 	WindowTable.ToggleButton = nil
+	
+	local ImageButton = Instance.new("ImageButton")
 
+	ImageButton.Parent = MainFrame
+	ImageButton.AnchorPoint = Vector2.new(1, 0)
+	ImageButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	ImageButton.BackgroundTransparency = 1.000
+	ImageButton.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	ImageButton.BorderSizePixel = 0
+	ImageButton.Position = UDim2.new(0.992500007, 0, 0.00999999978, 0)
+	ImageButton.Size = UDim2.new(0.0850000009, 0, 0.0850000009, 0)
+	ImageButton.SizeConstraint = Enum.SizeConstraint.RelativeYY
+	ImageButton.ZIndex = 50
+	ImageButton.Image = "rbxassetid://10002398990"
+	ImageButton.ImageTransparency = 1
+	
+	local HomeIcon = Instance.new("ImageLabel")
+	HomeIcon.Parent = ImageButton
+	HomeIcon.AnchorPoint = Vector2.new(0.5, 0.5)
+	HomeIcon.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	HomeIcon.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	HomeIcon.BorderSizePixel = 0
+	HomeIcon.Position = UDim2.new(0.5, 0, 0.5, 0)
+	HomeIcon.Size = UDim2.new(0.7,0,0.7,0)
+	HomeIcon.ZIndex = 49
+	HomeIcon.Image = "rbxassetid://7733993211"
+	HomeIcon.ScaleType = Enum.ScaleType.Fit
+	HomeIcon.ImageTransparency = 1;
+	HomeIcon.BackgroundTransparency = 1;
+	
 	local function Update()
 		if WindowTable.WindowToggle then
-			Twen:Create(MainFrame,TweenInfo1,{BackgroundTransparency = 0.4,Size = config.Size}):Play();
+			Twen:Create(MainFrame,TweenInfo.new(1.5,Enum.EasingStyle.Quint),{BackgroundTransparency = 0.4,Size = config.Size}):Play();
 			Twen:Create(MainDropShadow,TweenInfo1,{ImageTransparency = 0.6}):Play();
 			Twen:Create(Headers,TweenInfo1,{BackgroundTransparency = 0.5}):Play();
 			Twen:Create(Logo,TweenInfo1,{ImageTransparency = 0}):Play();
-			Twen:Create(MainFrame,TweenInfo.new(0.7,Enum.EasingStyle.Quint,Enum.EasingDirection.InOut),{Position = UDim2.fromScale(0.5,0.5)}):Play();
+			Twen:Create(MainFrame,TweenInfo.new(0.5,Enum.EasingStyle.Quint),{Position = UDim2.fromScale(0.5,0.5)}):Play();
 			WindowTable.ElBlurUI.Enabled = true;
+			
+			Twen:Create(BlockFrame1,TweenInfo1,{BackgroundTransparency = 0.8}):Play();
+			Twen:Create(BlockFrame2,TweenInfo1,{BackgroundTransparency = 0.8}):Play();
+			Twen:Create(BlockFrame3,TweenInfo1,{BackgroundTransparency = 0.8}):Play();
+			
+			Twen:Create(TabButtonFrame,TweenInfo1,{Position = UDim2.fromScale(0.16,0.215)}):Play();
+			Twen:Create(MainTabFrame,TweenInfo1,{Position = UDim2.fromScale(0.658,0.131)}):Play();
+			Twen:Create(Description,TweenInfo1,{Position = UDim2.fromScale(0.328,0.071)}):Play();
+
+			Twen:Create(Title,TweenInfo1,{Position = UDim2.fromScale(0.328,0.013)}):Play();
+			Twen:Create(Headers,TweenInfo1,{Position = UDim2.fromScale(0.01,0.015)}):Play();
+
+			Twen:Create(ImageButton,TweenInfo.new(0.85,Enum.EasingStyle.Quint,Enum.EasingDirection.InOut),{
+				Position = UDim2.new(0.992500007, 0, 0.00999999978, 0),
+				Size = UDim2.new(0.0850000009, 0, 0.0850000009, 0),
+				ImageTransparency = 0.5,
+				AnchorPoint = Vector2.new(1, 0)
+			}):Play();
+			
+			Twen:Create(HomeIcon,TweenInfo.new(0.5),{
+				ImageTransparency = 1,
+			}):Play()
+
+			ImageButton.Image = "rbxassetid://10002398990"
+			
+			Twen:Create(UICorner,TweenInfo.new(1),{
+				CornerRadius = UDim.new(0, 7)
+			}):Play()
+
 		else
-			Twen:Create(MainFrame,TweenInfo1,{BackgroundTransparency = 1,Size = UDim2.new(0.100000001, 0, 0.0500000007, 0)}):Play();
-			Twen:Create(MainFrame,TweenInfo2,{Position = UDim2.fromScale(0.5,-0)}):Play();
+			Twen:Create(MainFrame,TweenInfo.new(1,Enum.EasingStyle.Quint),{BackgroundTransparency = 1,Size = UDim2.new(0.085, 10,0.05, 0)}):Play();
+			Twen:Create(MainFrame,TweenInfo.new(0.5,Enum.EasingStyle.Quint),{Position = UDim2.new(0.5, 0,0.05, 0)}):Play();
 			Twen:Create(MainDropShadow,TweenInfo1,{ImageTransparency = 1}):Play();
 			Twen:Create(Headers,TweenInfo1,{BackgroundTransparency = 1}):Play();
 			Twen:Create(Logo,TweenInfo1,{ImageTransparency = 1}):Play();
+			Twen:Create(TabButtonFrame,TweenInfo1,{Position = UDim2.fromScale(0.16,1.1)}):Play();
+			Twen:Create(MainTabFrame,TweenInfo1,{Position = UDim2.fromScale(1.5,0.131)}):Play();
+			Twen:Create(Description,TweenInfo1,{Position = UDim2.fromScale(1.5,0.071)}):Play();
+			Twen:Create(Headers,TweenInfo1,{Position = UDim2.fromScale(0.01,-0.2)}):Play();
+
+			Twen:Create(UICorner,TweenInfo.new(1),{
+				CornerRadius = UDim.new(0.1,0)
+			}):Play()
+			
+			Twen:Create(ImageButton,TweenInfo1,{
+				Position = UDim2.new(0.5, 0, 0.5, 0),
+				Size = UDim2.new(1,0,1,0),
+				ImageTransparency = 1,
+				AnchorPoint = Vector2.new(0.5,0.5)
+			}):Play();
+			
+			Twen:Create(HomeIcon,TweenInfo.new(1),{
+				ImageTransparency = 0.5,
+			}):Play()
+			
+			
+			Twen:Create(Title,TweenInfo1,{Position = UDim2.fromScale(1,0.071)}):Play();
+
+			
+			Twen:Create(BlockFrame1,TweenInfo1,{BackgroundTransparency = 1}):Play();
+			Twen:Create(BlockFrame2,TweenInfo1,{BackgroundTransparency = 1}):Play();
+			Twen:Create(BlockFrame3,TweenInfo1,{BackgroundTransparency = 1}):Play();
 
 			WindowTable.ElBlurUI.Enabled = false;
-
-			task.delay(0.6,function()
-				if not WindowTable.WindowToggle then
-					Twen:Create(MainFrame,TweenInfo2,{Position = UDim2.fromScale(0.5,-0.15)}):Play();
-				end;
-			end)
 		end;
 
 		WindowTable.Dropdown:Close()
@@ -316,6 +395,262 @@ function Library.new(config)
 
 		task.delay(1,WindowTable.ElBlurUI.Update)
 	end;
+
+	Twen:Create(ImageButton,TweenInfo1,{
+		ImageTransparency = 0.5
+	}):Play()
+
+	ImageButton.MouseButton1Click:Connect(function()
+		WindowTable.WindowToggle = not WindowTable.WindowToggle
+		Update()
+	end)
+
+	Input.InputBegan:Connect(function(io)
+		if io.KeyCode == WindowTable.Keybind then
+			WindowTable.WindowToggle = not WindowTable.WindowToggle
+			Update()
+		end
+	end)
+
+	ScreenGui.Parent = CoreGui;
+	ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Global;
+	ScreenGui.ResetOnSpawn = false;
+	ScreenGui.IgnoreGuiInset = true;
+	ScreenGui.Name = "RobloxGameGui";
+
+	MainFrame.Name = "MainFrame"
+	MainFrame.Parent = ScreenGui
+	MainFrame.AnchorPoint = Vector2.new(0.5, 0.5)
+	MainFrame.BackgroundColor3 = Color3.fromRGB(17, 17, 17)
+	MainFrame.BackgroundTransparency = 1
+	MainFrame.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	MainFrame.BorderSizePixel = 0
+	MainFrame.Position = UDim2.new(0.5, 0, 0.5, 0)
+	MainFrame.Size = UDim2.fromOffset(config.Size.X.Offset,config.Size.Y.Offset)
+	MainFrame.Active = true;
+	MainFrame.ClipsDescendants = true;
+	
+	WindowTable.AddEffect = function(color)
+		Library.GradientImage(MainFrame,color)
+	end
+
+	Twen:Create(MainFrame,TweenInfo1,{BackgroundTransparency = 0.4,Size = config.Size}):Play();
+
+	WindowTable.ElBlurUI = ElBlurSource.new(MainFrame);
+
+	UICorner.CornerRadius = UDim.new(0, 7)
+	UICorner.Parent = MainFrame
+
+	MainDropShadow.Name = "MainDropShadow"
+	MainDropShadow.Parent = MainFrame
+	MainDropShadow.AnchorPoint = Vector2.new(0.5, 0.5)
+	MainDropShadow.BackgroundTransparency = 1.000
+	MainDropShadow.BorderSizePixel = 0
+	MainDropShadow.Position = UDim2.new(0.5, 0, 0.5, 0)
+	MainDropShadow.Size = UDim2.new(1, 47, 1, 47)
+	MainDropShadow.ZIndex = 0
+	MainDropShadow.Image = "rbxassetid://6015897843"
+	MainDropShadow.ImageColor3 = Color3.fromRGB(0, 0, 0)
+	MainDropShadow.ImageTransparency = 1
+	MainDropShadow.ScaleType = Enum.ScaleType.Slice
+	MainDropShadow.SliceCenter = Rect.new(49, 49, 450, 450)
+	MainDropShadow.Rotation = 0.0001;
+	
+	Twen:Create(MainDropShadow,TweenInfo2,{ImageTransparency = 0.6}):Play();
+
+	Headers.Name = "Headers"
+	Headers.Parent = MainFrame
+	Headers.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+	Headers.BackgroundTransparency = 1
+	Headers.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	Headers.BorderSizePixel = 0
+	Headers.ClipsDescendants = true
+	Headers.Position = UDim2.new(0.0100000743, 0, 0.015, 0)
+	Headers.Size = UDim2.new(0.300000012, 0, 0.178419471, 0)
+	Headers.ZIndex = 3
+	Twen:Create(Headers,TweenInfo2,{BackgroundTransparency = 0.5}):Play();
+
+	Logo.Name = "Logo"
+	Logo.Parent = Headers
+	Logo.Active = true
+	Logo.AnchorPoint = Vector2.new(0.5, 0.5)
+	Logo.BackgroundColor3 = Color3.fromRGB(255, 0, 4)
+	Logo.BackgroundTransparency = 1.000
+	Logo.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	Logo.BorderSizePixel = 0
+	Logo.Position = UDim2.new(0.5, 0, 0.5, 0)
+	Logo.Size = UDim2.new(0.949999988, 0, 0.949999988, 0)
+	Logo.ZIndex = 4
+	Logo.Image = config.Logo;
+	Logo.ScaleType = Enum.ScaleType.Crop
+	Logo.ImageTransparency = 1;
+
+	Twen:Create(Logo,TweenInfo2,{ImageTransparency = 0}):Play();
+
+	UICorner_2.CornerRadius = UDim.new(0, 15)
+	UICorner_2.Parent = Headers
+	Twen:Create(UICorner_2,TweenInfo2,{CornerRadius = UDim.new(0, 4)}):Play();
+
+	Title.Name = "Title"
+	Title.Parent = MainFrame
+	Title.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	Title.BackgroundTransparency = 1.000
+	Title.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	Title.BorderSizePixel = 0
+	Title.Position = UDim2.new(0.327570528, 0, 0.0126646794, 0)
+	Title.Size = UDim2.new(0.671064615, 0, 0.0518743545, 0)
+	Title.Font = Enum.Font.GothamBold
+	Title.Text = config.Title
+	Title.TextColor3 = Color3.fromRGB(255, 255, 255)
+	Title.TextScaled = true
+	Title.TextSize = 14.000
+	Title.TextWrapped = true
+	Title.TextXAlignment = Enum.TextXAlignment.Left
+	Title.TextTransparency = 1;
+
+	Twen:Create(Title,TweenInfo2,{TextTransparency = 0}):Play();
+
+	UIGradient.Rotation = 90
+	UIGradient.Transparency = NumberSequence.new{NumberSequenceKeypoint.new(0.00, 0.00), NumberSequenceKeypoint.new(0.75, 0.27), NumberSequenceKeypoint.new(1.00, 1.00)}
+	UIGradient.Parent = Title
+
+	Description.Name = "Description"
+	Description.Parent = MainFrame
+	Description.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	Description.BackgroundTransparency = 1.000
+	Description.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	Description.BorderSizePixel = 0
+	Description.Position = UDim2.new(0.327570528, 0, 0.0709220618, 0)
+	Description.Size = UDim2.new(0.671064615, 0, 0.0290780049, 0)
+	Description.Font = Enum.Font.GothamBold
+	Description.Text = config.Description
+	Description.TextColor3 = Color3.fromRGB(255, 255, 255)
+	Description.TextScaled = true
+	Description.TextSize = 14.000
+	Description.TextTransparency = 1
+	Description.TextWrapped = true
+	Description.TextXAlignment = Enum.TextXAlignment.Left
+	Twen:Create(Description,TweenInfo2,{TextTransparency = 0.5}):Play();
+
+	UIGradient_2.Rotation = 90
+	UIGradient_2.Transparency = NumberSequence.new{NumberSequenceKeypoint.new(0.00, 0.00), NumberSequenceKeypoint.new(0.75, 0.27), NumberSequenceKeypoint.new(1.00, 1.00)}
+	UIGradient_2.Parent = Description
+
+	BlockFrame1.Name = "BlockFrame1"
+	BlockFrame1.Parent = MainFrame
+	BlockFrame1.AnchorPoint = Vector2.new(0, 0.5)
+	BlockFrame1.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	BlockFrame1.BackgroundTransparency = 1
+	BlockFrame1.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	BlockFrame1.BorderSizePixel = 0
+	BlockFrame1.Position = UDim2.new(0.317000002, 0, 0.5, 0)
+	BlockFrame1.Size = UDim2.new(0, 1, 1, 0)
+	BlockFrame1.ZIndex = 3
+	Twen:Create(BlockFrame1,TweenInfo2,{BackgroundTransparency = 0.8}):Play();
+
+	UICorner_3.CornerRadius = UDim.new(0.5, 0)
+	UICorner_3.Parent = BlockFrame1
+
+	UIGradient_3.Rotation = 90
+	UIGradient_3.Transparency = NumberSequence.new{NumberSequenceKeypoint.new(0.00, 1.00), NumberSequenceKeypoint.new(0.05, 0.00), NumberSequenceKeypoint.new(0.96, 0.00), NumberSequenceKeypoint.new(1.00, 1.00)}
+	UIGradient_3.Parent = BlockFrame1
+
+	BlockFrame3.Name = "BlockFrame3"
+	BlockFrame3.Parent = MainFrame
+	BlockFrame3.AnchorPoint = Vector2.new(0, 0.5)
+	BlockFrame3.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	BlockFrame3.BackgroundTransparency = 1
+	BlockFrame3.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	BlockFrame3.BorderSizePixel = 0
+	BlockFrame3.Position = UDim2.new(0.317000061, 0, 0.120060779, 0)
+	BlockFrame3.Size = UDim2.new(0.682999969, 0, 0, 1)
+	BlockFrame3.ZIndex = 3
+	Twen:Create(BlockFrame3,TweenInfo2,{BackgroundTransparency = 0.8}):Play();
+
+	UICorner_4.CornerRadius = UDim.new(0.5, 0)
+	UICorner_4.Parent = BlockFrame3
+
+	UIGradient_4.Transparency = NumberSequence.new{NumberSequenceKeypoint.new(0.00, 0.00), NumberSequenceKeypoint.new(0.98, 0.00), NumberSequenceKeypoint.new(1.00, 1.00)}
+	UIGradient_4.Parent = BlockFrame3
+
+	BlockFrame2.Name = "BlockFrame2"
+	BlockFrame2.Parent = MainFrame
+	BlockFrame2.AnchorPoint = Vector2.new(0, 0.5)
+	BlockFrame2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	BlockFrame2.BackgroundTransparency = 1
+	BlockFrame2.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	BlockFrame2.BorderSizePixel = 0
+	BlockFrame2.Position = UDim2.new(-0.00100000005, 0, 0.204999998, 0)
+	BlockFrame2.Size = UDim2.new(0.318471342, 0, 0, 1)
+	BlockFrame2.ZIndex = 3
+	Twen:Create(BlockFrame2,TweenInfo2,{BackgroundTransparency = 0.8}):Play();
+
+	UICorner_5.CornerRadius = UDim.new(0.5, 0)
+	UICorner_5.Parent = BlockFrame2
+
+	UIGradient_5.Rotation = -180
+	UIGradient_5.Transparency = NumberSequence.new{NumberSequenceKeypoint.new(0.00, 0.00), NumberSequenceKeypoint.new(0.98, 0.00), NumberSequenceKeypoint.new(1.00, 1.00)}
+	UIGradient_5.Parent = BlockFrame2
+
+	TabButtonFrame.Name = "TabButtonFrame"
+	TabButtonFrame.Parent = MainFrame
+	TabButtonFrame.AnchorPoint = Vector2.new(0.5, 0)
+	TabButtonFrame.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+	TabButtonFrame.BackgroundTransparency = 1
+	TabButtonFrame.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	TabButtonFrame.BorderSizePixel = 0
+	TabButtonFrame.ClipsDescendants = true
+	TabButtonFrame.Position = UDim2.new(0.159999996, 0, 0.215000004, 0)
+	TabButtonFrame.Size = UDim2.new(0.300000012, 0, 0.774999976, 0)
+	Twen:Create(TabButtonFrame,TweenInfo2,{BackgroundTransparency = 0.5}):Play();
+
+	UICorner_6.CornerRadius = UDim.new(0, 3)
+	UICorner_6.Parent = TabButtonFrame
+
+	TabButtons.Name = "TabButtons"
+	TabButtons.Parent = TabButtonFrame
+	TabButtons.Active = true
+	TabButtons.AnchorPoint = Vector2.new(0.5, 0.5)
+	TabButtons.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	TabButtons.BackgroundTransparency = 1.000
+	TabButtons.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	TabButtons.BorderSizePixel = 0
+	TabButtons.ClipsDescendants = false
+	TabButtons.Position = UDim2.new(0.5, 0, 0.5, 0)
+	TabButtons.Size = UDim2.new(0.970000029, 0, 0.970000029, 0)
+	TabButtons.ScrollBarThickness = 0
+	UIListLayout:GetPropertyChangedSignal('AbsoluteContentSize'):Connect(function()
+		TabButtons.CanvasSize = UDim2.fromOffset(0,UIListLayout.AbsoluteContentSize.Y)
+	end)
+	UIListLayout.Parent = TabButtons
+	UIListLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
+	UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
+	UIListLayout.Padding = UDim.new(0, 3)
+
+	MainTabFrame.Name = "MainTabFrame"
+	MainTabFrame.Parent = MainFrame
+	MainTabFrame.AnchorPoint = Vector2.new(0.5, 0)
+	MainTabFrame.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+	MainTabFrame.BackgroundTransparency = 1
+	MainTabFrame.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	MainTabFrame.BorderSizePixel = 0
+	MainTabFrame.ClipsDescendants = true
+	MainTabFrame.Position = UDim2.new(0.657999992, 0, 0.130999997, 0)
+	MainTabFrame.Size = UDim2.new(0.670000017, 0, 0.860000014, 0)
+	Twen:Create(MainTabFrame,TweenInfo2,{BackgroundTransparency = 0.5}):Play();
+
+	UICorner_7.CornerRadius = UDim.new(0, 3)
+	UICorner_7.Parent = MainTabFrame
+
+	InputFrame.Name = "InputFrame"
+	InputFrame.Parent = MainFrame
+	InputFrame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	InputFrame.BackgroundTransparency = 1.000
+	InputFrame.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	InputFrame.BorderSizePixel = 0
+	InputFrame.Position = UDim2.new(0, 0, 3.86494179e-08, 0)
+	InputFrame.Size = UDim2.new(1, 0, 0.121327251, 0)
+	InputFrame.ZIndex = 15;
 
 	task.spawn(function()
 		local Frame = Instance.new("Frame")
