@@ -1,3 +1,5 @@
+-- ICON: https://raw.githubusercontent.com/evoincorp/lucideblox/master/src/modules/util/icons.json -
+
 local Twen = game:GetService('TweenService');
 local Input = game:GetService('UserInputService');
 local TextServ = game:GetService('TextService');
@@ -300,33 +302,32 @@ function Library.new(config)
 	
 	local ImageButton = Instance.new("ImageButton")
 
+	ImageButton.Parent = MainFrame
+	ImageButton.AnchorPoint = Vector2.new(1, 0)
+	ImageButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	ImageButton.BackgroundTransparency = 1.000
+	ImageButton.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	ImageButton.BorderSizePixel = 0
+	ImageButton.Position = UDim2.new(0.992500007, 0, 0.00999999978, 0)
+	ImageButton.Size = UDim2.new(0.0850000009, 0, 0.0850000009, 0)
+	ImageButton.SizeConstraint = Enum.SizeConstraint.RelativeYY
+	ImageButton.ZIndex = 50
+	ImageButton.Image = "rbxassetid://10002398990"
+	ImageButton.ImageTransparency = 1
 	
-ImageButton.Parent = MainFrame
-ImageButton.AnchorPoint = Vector2.new(1, 0)
-ImageButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-ImageButton.BackgroundTransparency = 1.000
-ImageButton.BorderColor3 = Color3.fromRGB(0, 0, 0)
-ImageButton.BorderSizePixel = 0
-ImageButton.Position = UDim2.new(0.992500007, 0, 0.00999999978, 0)
-ImageButton.Size = UDim2.new(1.35, 0, 1.35, 0)
-ImageButton.ZIndex = 50
-ImageButton.Image = "rbxassetid://10002398990"
-ImageButton.ImageTransparency = 1
-
-local HomeIcon = Instance.new("ImageLabel")
-HomeIcon.Parent = ImageButton
-HomeIcon.AnchorPoint = Vector2.new(0.5, 0.5)
-HomeIcon.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-HomeIcon.BorderColor3 = Color3.fromRGB(0, 0, 0)
-HomeIcon.BorderSizePixel = 0
-HomeIcon.Position = UDim2.new(0.5, 0, 0.5, 0)
-HomeIcon.Size = UDim2.new(0.7, 0, 0.7, 0)
-HomeIcon.ZIndex = 49
-HomeIcon.Image = "rbxassetid://135496878313049"
-HomeIcon.ScaleType = Enum.ScaleType.Fit
-HomeIcon.ImageTransparency = 1
-HomeIcon.BackgroundTransparency = 1
-
+	local HomeIcon = Instance.new("ImageLabel")
+	HomeIcon.Parent = ImageButton
+	HomeIcon.AnchorPoint = Vector2.new(0.5, 0.5)
+	HomeIcon.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	HomeIcon.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	HomeIcon.BorderSizePixel = 0
+	HomeIcon.Position = UDim2.new(0.5, 0, 0.5, 0)
+	HomeIcon.Size = UDim2.new(0.7,0,0.7,0)
+	HomeIcon.ZIndex = 49
+	HomeIcon.Image = "rbxassetid://7733993211"
+	HomeIcon.ScaleType = Enum.ScaleType.Fit
+	HomeIcon.ImageTransparency = 1;
+	HomeIcon.BackgroundTransparency = 1;
 	
 	local function Update()
 		if WindowTable.WindowToggle then
@@ -3454,6 +3455,6 @@ function Library:Console()
 	return overview;
 end;
 
-print('[SUCCESS] Library loaded ✓')
+print('[ OK ]: Fetch Nothing Library')
 
 return table.freeze(Library);
