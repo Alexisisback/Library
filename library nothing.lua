@@ -320,7 +320,7 @@ function Library.new(config)
 	HomeIcon.BorderColor3 = Color3.fromRGB(0, 0, 0)
 	HomeIcon.BorderSizePixel = 0
 	HomeIcon.Position = UDim2.new(0.5, 0, 0.5, 0)
-	HomeIcon.Size = UDim2.new(0.7,0,0.7,0)
+	HomeIcon.Size = UDim2.new(1,0,1,0)
 	HomeIcon.ZIndex = 49
 	HomeIcon.Image = "rbxassetid://135496878313049"
 	HomeIcon.ScaleType = Enum.ScaleType.Fit
