@@ -27,7 +27,7 @@ local ElBlurSource = function()
 		return rayOrigin + (a * rayDirection), a;
 	end;
 
-	function GuiSystem.new(frame)
+	function GuiSystem.new(frame,NoAutoBackground)
 		local Part = Instance.new('Part',workspace);
 		local DepthOfField = Instance.new('DepthOfFieldEffect',game:GetService('Lighting'));
 		local SurfaceGui = Instance.new('SurfaceGui',Part);
@@ -113,6 +113,25 @@ local ElBlurSource = function()
 			BlockMesh.Offset = center
 			BlockMesh.Scale  = size / 0.0101;
 			Part.CFrame = CurrentCamera.CFrame;
+
+			if not NoAutoBackground then
+
+				local _,updatec = pcall(function()
+					local userSettings = UserSettings():GetService("UserGameSettings")
+					local qualityLevel = userSettings.SavedQualityLevel.Value
+
+					if qualityLevel < 8 then
+						Twen:Create(frame,TweenInfo.new(1),{
+							BackgroundTransparency = 0
+						}):Play()
+					else
+						Twen:Create(frame,TweenInfo.new(1),{
+							BackgroundTransparency = 0.4
+						}):Play()
+					end;
+				end)
+
+			end
 		end
 
 		C4.Update = Update;
@@ -123,6 +142,21 @@ local ElBlurSource = function()
 				Part.CFrame = CurrentCamera.CFrame;
 			end);
 		end)
+
+		C4.Destroy = function()
+			C4.Signal:Disconnect();
+			C4.Signal2:Disconnect();
+			C4.Update = function()
+
+			end;
+
+			Twen:Create(Part,TweenInfo.new(1),{
+				Transparency = 1
+			}):Play();
+
+			DepthOfField:Destroy();
+			Part:Destroy()
+		end;
 
 		return C4;
 	end;
@@ -149,6 +183,60 @@ Library['FetchIcon'] = "https://raw.githubusercontent.com/evoincorp/lucideblox/m
 pcall(function()
 	Library['Icons'] = game:GetService('HttpService'):JSONDecode(game:HttpGetAsync(Library.FetchIcon))['icons'];
 end)
+
+function Library.GradientImage(E : Frame , Color)
+	local GLImage = Instance.new("ImageLabel")
+	local upd = tick();
+	local nextU , Speed , speedy , SIZ = 4 , 5 , -5 , 0.8;
+	local nextmain = UDim2.new();
+	local rng = Random.new(math.random(10,100000) + math.random(100, 1000) + math.sqrt(tick()));
+	local int = 1;
+	local TPL = 0.55;
+
+	GLImage.Name = "GLImage"
+	GLImage.Parent = E
+	GLImage.AnchorPoint = Vector2.new(0.5, 0.5)
+	GLImage.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	GLImage.BackgroundTransparency = 1.000
+	GLImage.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	GLImage.BorderSizePixel = 0
+	GLImage.Position = UDim2.new(0.5, 0, 0.5, 0)
+	GLImage.Size = UDim2.new(0.800000012, 0, 0.800000012, 0)
+	GLImage.SizeConstraint = Enum.SizeConstraint.RelativeYY
+	GLImage.ZIndex = E.ZIndex - 1;
+	GLImage.Image = "rbxassetid://867619398"
+	GLImage.ImageColor3 = Color or Color3.fromRGB(0, 195, 255)
+	GLImage.ImageTransparency = 1;
+
+	local str = 'GL_EFFECT_'..tostring(tick());
+	game:GetService('RunService'):BindToRenderStep(str,45,function()
+		if (tick() - upd) > nextU then
+			nextU = rng:NextNumber(1.1,2.5)
+			Speed = rng:NextNumber(-6,6)
+			speedy = rng:NextNumber(-6,6)
+			TPL = rng:NextNumber(0.2,0.8)
+			SIZ = rng:NextNumber(0.6,0.9);
+			upd = tick();
+			int = 1
+		else
+			speedy = speedy + rng:NextNumber(-0.1,0.1);
+			Speed = Speed + rng:NextNumber(-0.1,0.1);
+
+		end;
+
+		nextmain = nextmain:Lerp(UDim2.new(0.5 + (Speed / 24),0,0.5 + (speedy / 24),0) , .025)
+		int = int + 0.1
+
+		Twen:Create(GLImage,TweenInfo.new(1),{
+			Rotation = GLImage.Rotation + Speed,
+			Position = nextmain,
+			Size = UDim2.fromScale(SIZ,SIZ),
+			ImageTransparency = TPL
+		}):Play()
+	end)
+
+	return str
+end;
 
 function Library.new(config)
 	config = Config(config,{
