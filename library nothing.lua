@@ -322,7 +322,7 @@ function Library.new(config)
 	HomeIcon.Position = UDim2.new(0.5, 0, 0.5, 0)
 	HomeIcon.Size = UDim2.new(0.7,0,0.7,0)
 	HomeIcon.ZIndex = 49
-	HomeIcon.Image = "rbxassetid://7733993211"
+	HomeIcon.Image = "rbxassetid://135496878313049"
 	HomeIcon.ScaleType = Enum.ScaleType.Fit
 	HomeIcon.ImageTransparency = 1;
 	HomeIcon.BackgroundTransparency = 1;
