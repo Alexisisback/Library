@@ -3455,6 +3455,6 @@ function Library:Console()
 	return overview;
 end;
 
-print('[ OK ]: Fetch Nothing Library')
+print('[SUCCESS] Library loaded ✓')
 
 return table.freeze(Library);
