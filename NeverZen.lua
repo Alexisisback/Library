@@ -2407,6 +2407,35 @@ end
 				LabelValue.TextColor3 = Color3.fromRGB(255, 255, 255)
 				LabelValue.TextSize = 10.000
 				LabelValue.TextTransparency = 0.250
+				
+			 LabelValue.TextEditable = true
+    LabelValue.ClearTextOnFocus = false
+    LabelValue.TextXAlignment = Enum.TextXAlignment.Center
+    LabelValue.TextYAlignment = Enum.TextYAlignment.Center
+
+LabelValue.FocusLost:Connect(function(enter)
+	if enter then
+		local number = tonumber(LabelValue.Text)
+		if number then
+			number = math.clamp(number, config.Min, config.Max)
+			number = NeverZen:Rounding(number, config.Round)
+			
+			config.Default = number
+			block.Size = UDim2.new((number - config.Min) / (config.Max - config.Min), 0, 1, 0)
+			LabelValue.Text = tostring(number)..tostring(config.Type)
+
+			local scale = TextService:GetTextSize(LabelValue.Text, LabelValue.TextSize, LabelValue.Font, Vector2.new(math.huge, math.huge))
+			value.Size = UDim2.new(0, scale.X + 5, 0, 15)
+			updateSIZE()
+
+			config.Callback(number, config)
+		else
+			LabelValue.Text = tostring(config.Default)..tostring(config.Type)
+		end
+	end
+end)
+
+
 
 				UIStroke.Color = NeverZen.Theme.StrokeColor
 				UIStroke.Parent = value
@@ -2426,7 +2455,7 @@ end
 				Label.TextSize = 14.000
 				Label.TextTransparency = 0.250
 				Label.TextXAlignment = Enum.TextXAlignment.Left
-
+				
 				con.Name = "con"
 				con.Parent = Slider
 				con.AnchorPoint = Vector2.new(1, 0.5)
