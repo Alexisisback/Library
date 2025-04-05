@@ -2359,7 +2359,7 @@ end
 				local Slider = Instance.new("Frame")
 				local value = Instance.new("Frame")
 				local UICorner = Instance.new("UICorner")
-				local LabelValue = Instance.new("TextLabel")
+				local LabelValue = Instance.new("TextBox")
 				local UIStroke = Instance.new("UIStroke")
 				local Label = Instance.new("TextLabel")
 				local con = Instance.new("Frame")
