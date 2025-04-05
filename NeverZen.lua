@@ -2198,6 +2198,7 @@ function NeverZen.new(config)
 		function SectionSignal:AddTextbox(config)
 	config = config or {};
 	config.Name = config.Name or "Textbox";
+	config.Placeholder = config.Placeholder or ""
 	config.Default = config.Default or "";
 	config.Callback = config.Callback or function() end;
 
