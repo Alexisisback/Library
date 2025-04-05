@@ -2196,83 +2196,77 @@ function NeverZen.new(config)
 			end;
 			
 		function SectionSignal:AddTextbox(config)
-	config = config or {};
-	config.Name = config.Name or "Textbox";
+	config = config or {}
+	config.Name = config.Name or "Textbox"
 	config.Placeholder = config.Placeholder or ""
-	config.Default = config.Default or "";
-	config.Callback = config.Callback or function() end;
+	config.Callback = config.Callback or function() end
 
-	local Holder = Instance.new("Frame")
+	local Frame = Instance.new("Frame")
 	local Label = Instance.new("TextLabel")
-	local TextBox = Instance.new("TextBox")
+	local Box = Instance.new("TextBox")
 	local UICorner = Instance.new("UICorner")
 	local UIStroke = Instance.new("UIStroke")
 
-	table.insert(itemForSearch,{
-		Frame = Holder,
+	table.insert(itemForSearch, {
+		Frame = Frame,
 		Name = config.Name
 	})
 
-	Holder.Name = NeverZen:RandomString()
-	Holder.Parent = Section
-	Holder.BackgroundColor3 = NeverZen.Theme.BackgroundColor
-	Holder.BorderColor3 = Color3.fromRGB(0, 0, 0)
-	Holder.BorderSizePixel = 0
-	Holder.Size = UDim2.new(1, -10, 0, 25)
+	Frame.Name = NeverZen:RandomString()
+	Frame.Parent = Section
+	Frame.BackgroundColor3 = NeverZen.Theme.BackgroundColor
+	Frame.BorderSizePixel = 0
+	Frame.Size = UDim2.new(1, -10, 0, 25)
 
 	Label.Name = "Label"
-	Label.Parent = Holder
+	Label.Parent = Frame
 	Label.AnchorPoint = Vector2.new(0, 0.5)
-	Label.BackgroundTransparency = 1.000
+	Label.BackgroundTransparency = 1
 	Label.Position = UDim2.new(0, 5, 0.5, 0)
-	Label.Size = UDim2.new(0.5, -5, 0.65, 0)
+	Label.Size = UDim2.new(0.3, 0, 1, 0)
 	Label.Font = Enum.Font.GothamMedium
 	Label.Text = config.Name
 	Label.TextColor3 = Color3.fromRGB(255, 255, 255)
-	Label.TextSize = 14.000
-	Label.TextTransparency = 0.100
+	Label.TextSize = 14
 	Label.TextXAlignment = Enum.TextXAlignment.Left
 
-	TextBox.Name = "TextBox"
-	TextBox.Parent = Holder
-	TextBox.AnchorPoint = Vector2.new(1, 0.5)
-	TextBox.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
-	TextBox.BorderSizePixel = 0
-	TextBox.Position = UDim2.new(1, -5, 0.5, 0)
-	TextBox.Size = UDim2.new(0.4, -5, 0.6, 0)
-	TextBox.Font = Enum.Font.Gotham
-	Textbox.PlaceholderText = config.Placeholder or ""
-	TextBox.Text = config.Default
-	TextBox.TextColor3 = Color3.fromRGB(255, 255, 255)
-	TextBox.TextSize = 13.000
-	TextBox.ClearTextOnFocus = false
-
-	textboxCorner = Instance.new("UICorner")
-	textboxCorner.CornerRadius = UDim.new(0, 4)
-	textboxCorner.Parent = TextBox
+	Box.Name = "Box"
+	Box.Parent = Frame
+	Box.AnchorPoint = Vector2.new(1, 0.5)
+	Box.BackgroundTransparency = 0
+	Box.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+	Box.Position = UDim2.new(1, -5, 0.5, 0)
+	Box.Size = UDim2.new(0.6, 0, 1, -4)
+	Box.ClearTextOnFocus = false
+	Box.Font = Enum.Font.Gotham
+	Box.Text = ""
+	Box.PlaceholderText = config.Placeholder
+	Box.TextColor3 = Color3.fromRGB(255, 255, 255)
+	Box.TextSize = 13
+	Box.TextXAlignment = Enum.TextXAlignment.Left
 
 	UICorner.CornerRadius = UDim.new(0, 4)
-	UICorner.Parent = Holder
+	UICorner.Parent = Box
 
 	UIStroke.Color = NeverZen.Theme.StrokeColor
-	UIStroke.Parent = Holder
+	UIStroke.Parent = Box
 
-	TextBox.FocusLost:Connect(function(enterPressed)
-		if enterPressed then
-			config.Callback(TextBox.Text, config)
+	Box.FocusLost:Connect(function(enterPressed)
+		if enterPressed and config.Callback then
+			config.Callback(Box.Text)
 		end
 	end)
 
 	return {
-		SetValue = function(self, value)
-			TextBox.Text = value
+		SetText = function(self, text)
+			Box.Text = text
 		end,
-		GetValue = function()
-			return TextBox.Text
+		GetText = function()
+			return Box.Text
 		end,
 		Visible = function(self, value)
-			Holder.Visible = value
-		end,
+			Frame.Visible = value
+		end
 	}
 end
 
