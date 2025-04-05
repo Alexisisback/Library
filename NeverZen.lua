@@ -2535,7 +2535,7 @@ end)
 
 	updateSIZE()
 	config.Callback(Value, config)
-end,
+end
 
 
 				con.InputBegan:Connect(function(Input)
