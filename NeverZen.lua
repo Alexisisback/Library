@@ -2415,17 +2415,22 @@ end
 
 LabelValue.FocusLost:Connect(function(enter)
 	if enter then
-		local number = tonumber(LabelValue.Text)
+		local cleanText = LabelValue.Text:gsub("[^%d%.%-]", "")
+		local number = tonumber(cleanText)
+
 		if number then
 			number = math.clamp(number, config.Min, config.Max)
 			number = NeverZen:Rounding(number, config.Round)
-			
+
 			config.Default = number
-			block.Size = UDim2.new((number - config.Min) / (config.Max - config.Min), 0, 1, 0)
+
+			local scale = (config.Max - config.Min) ~= 0 and (number - config.Min) / (config.Max - config.Min) or 0
+			block.Size = UDim2.new(scale, 0, 1, 0)
+
 			LabelValue.Text = tostring(number)..tostring(config.Type)
 
-			local scale = TextService:GetTextSize(LabelValue.Text, LabelValue.TextSize, LabelValue.Font, Vector2.new(math.huge, math.huge))
-			value.Size = UDim2.new(0, scale.X + 5, 0, 15)
+			local textSize = TextService:GetTextSize(LabelValue.Text, LabelValue.TextSize, LabelValue.Font, Vector2.new(math.huge, math.huge))
+			value.Size = UDim2.new(0, textSize.X + 5, 0, 15)
 			updateSIZE()
 
 			config.Callback(number, config)
