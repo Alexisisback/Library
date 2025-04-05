@@ -2415,7 +2415,7 @@ end
 
 LabelValue.FocusLost:Connect(function(enter)
 	if enter then
-		local cleanText = LabelValue.Text:gsub("[^%d%.%-]", "")
+	local cleanText = LabelValue.Text:gsub("[^%d%.%-]", "")
 		local number = tonumber(cleanText)
 
 		if number then
@@ -2516,24 +2516,27 @@ end)
 				updateSIZE()
 				
 				local function update(Input)
-					local SizeScale = math.clamp((((Input.Position.X) - con.AbsolutePosition.X) / con.AbsoluteSize.X), 0, 1);
-					local Main = ((config.Max - config.Min) * SizeScale) + config.Min;
-					local Value = NeverZen:Rounding(Main,config.Round);
-					local PositionX = UDim2.fromScale(SizeScale, 1);
-					local normalized = (Value - config.Min) / (config.Max - config.Min);
+	local relativeX = Input.Position.X - con.AbsolutePosition.X
+	local sensitivity = con.AbsoluteSize.X * 3
+	local SizeScale = math.clamp(relativeX / sensitivity, 0, 1)
 
-					TweenService:Create(block , TweenInfo.new(0.04),{
-						Size = UDim2.new(normalized, 0, 1, 0)
-					}):Play();
+	local Main = ((config.Max - config.Min) * SizeScale) + config.Min
+	local Value = NeverZen:Rounding(Main, config.Round)
+	local normalized = (Value - config.Min) / (config.Max - config.Min)
 
-					LabelValue.Text = tostring(Value)..tostring(config.Type)
-					
-					local scale = TextService:GetTextSize(LabelValue.Text,LabelValue.TextSize,LabelValue.Font,Vector2.new(math.huge,math.huge));
-					value.Size = UDim2.new(0, scale.X + 5, 0, 15)
-					updateSIZE()
-					
-					config.Callback(Value,config)
-				end;
+	TweenService:Create(block , TweenInfo.new(0.04), {
+		Size = UDim2.new(normalized, 0, 1, 0)
+	}):Play()
+
+	LabelValue.Text = tostring(Value)..tostring(config.Type)
+
+	local scale = TextService:GetTextSize(LabelValue.Text, LabelValue.TextSize, LabelValue.Font, Vector2.new(math.huge, math.huge))
+	value.Size = UDim2.new(0, scale.X + 5, 0, 15)
+
+	updateSIZE()
+	config.Callback(Value, config)
+end,
+
 
 				con.InputBegan:Connect(function(Input)
 					if Input.UserInputType == Enum.UserInputType.MouseButton1 or Input.UserInputType == Enum.UserInputType.Touch then
