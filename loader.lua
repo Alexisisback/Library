@@ -32,7 +32,7 @@ end;
 
 function module:Auth(config)
 	config = config or {};
-	config.Name = config.Name or "Key Sytem";
+	config.Name = config.Name or "Lunax Hub";
 	config.Description = config.Description or "Key System";
 	config.OnLogIn = config.OnLogIn or function() end;
 	config.OnGetKey = config.OnGetKey or function() end;
