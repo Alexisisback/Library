@@ -971,7 +971,7 @@ local Airflow = {
 do
 
 	local SetBlock = function(element , type , value)
-		if config.Type == "Keybind" then
+		if type == "Keybind" then
     local validKey = Enum.KeyCode[Value]
     if validKey then
         element:SetValue(validKey)
