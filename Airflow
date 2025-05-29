@@ -5544,3 +5544,63 @@ do
 end;
 
 return Airflow;
+
+local originalAddToggle = Library.AddToggle
+Library.AddToggle = function(self, options)
+    local originalCallback = options.Callback
+    options.Callback = function(...)
+        if originalCallback then
+            originalCallback(...)
+        end
+        Config:save("AutoSave", Library._config)
+    end
+    return originalAddToggle(self, options)
+end
+
+local originalAddSlider = Library.AddSlider
+Library.AddSlider = function(self, options)
+    local originalCallback = options.Callback
+    options.Callback = function(...)
+        if originalCallback then
+            originalCallback(...)
+        end
+        Config:save("AutoSave", Library._config)
+    end
+    return originalAddSlider(self, options)
+end
+
+local originalAddDropdown = Library.AddDropdown
+Library.AddDropdown = function(self, options)
+    local originalCallback = options.Callback
+    options.Callback = function(...)
+        if originalCallback then
+            originalCallback(...)
+        end
+        Config:save("AutoSave", Library._config)
+    end
+    return originalAddDropdown(self, options)
+end
+
+local originalAddKeybind = Library.AddKeybind
+Library.AddKeybind = function(self, options)
+    local originalCallback = options.Callback
+    options.Callback = function(...)
+        if originalCallback then
+            originalCallback(...)
+        end
+        Config:save("AutoSave", Library._config)
+    end
+    return originalAddKeybind(self, options)
+end
+
+local originalAddTextbox = Library.AddTextbox
+Library.AddTextbox = function(self, options)
+    local originalCallback = options.Callback
+    options.Callback = function(...)
+        if originalCallback then
+            originalCallback(...)
+        end
+        Config:save("AutoSave", Library._config)
+    end
+    return originalAddTextbox(self, options)
+end
