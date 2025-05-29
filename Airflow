@@ -5538,8 +5538,6 @@ do
 	end;
 end;
 
-return Airflow;
-
 local originalAddToggle = Library.AddToggle
 Library.AddToggle = function(self, options)
     local originalCallback = options.Callback
@@ -5599,3 +5597,7 @@ Library.AddTextbox = function(self, options)
     end
     return originalAddTextbox(self, options)
 end
+
+
+return Airflow;
+
