@@ -971,8 +971,13 @@ local Airflow = {
 do
 
 	local SetBlock = function(element , type , value)
-		if type == "Keybind" then
-			element:SetValue(value);
+		if config.Type == "Keybind" then
+    local validKey = Enum.KeyCode[Value]
+    if validKey then
+        element:SetValue(validKey)
+    else
+        warn("Invalid KeyCode in config: " .. tostring(Value))
+    end
 		elseif type == "Toggle" then
 			element:SetValue(value);
 		elseif type == "Dropdown" then
@@ -1037,23 +1042,16 @@ do
 		return true;
 	end;
 
-function Airflow.FileManager:WriteConfig(Window, path : string)
-	local config = Window:GetConfigs()
+	function Airflow.FileManager:WriteConfig(Window,path : string)
+		local config = Window:GetConfigs();
+		local mem = game:GetService('HttpService'):JSONEncode(config);
 
-	for k, v in pairs(config) do
-		if typeof(v) == "EnumItem" and tostring(v) == "Enum.KeyCode.None" then
-			config[k] = nil
-		end
-	end
+		if writefile then
+			writefile(path,mem);
+		end;
 
-	local mem = game:GetService('HttpService'):JSONEncode(config)
-	if writefile then
-		writefile(path, mem)
-	end
-
-	return mem
-end
-
+		return mem;
+	end;
 
 	function Airflow.FileManager:GetConfig(Window)
 		local config = Window:GetConfigs();
@@ -1069,28 +1067,11 @@ end
 		return Parser(Code,Window,VERSION or "1.0");
 	end;
 
-function Airflow.FileManager:LoadConfigFromString(Window, str : string, VERSION : string)
-	local HttpService = game:GetService("HttpService")
-	local success, Code = pcall(function()
-		return HttpService:JSONDecode(str)
-	end)
+	function Airflow.FileManager:LoadConfigFromString(Window,str : string,VERSION : string)
+		local Code = game:GetService('HttpService'):JSONDecode(str);
 
-	if not success or typeof(Code) ~= "table" then
-		warn("Invalid config JSON")
-		return
-	end
-
-	for k, v in pairs(Code) do
-		if typeof(v) == "string" then
-			if v == "None" or not Enum.KeyCode[v] then
-				Code[k] = nil
-			end
-		end
-	end
-
-	return Parser(Code, Window, VERSION or "1.0")
-end
-
+		return Parser(Code,Window,VERSION or "1.0");
+	end;
 
 	function Airflow.FileManager:GetVersion(path : string)
 		local Code = game:GetService('HttpService'):JSONDecode(readfile(path));
