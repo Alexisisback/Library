@@ -36,6 +36,7 @@ function module:Auth(config)
 	config.Description = config.Description or "Key System";
 	config.OnLogIn = config.OnLogIn or function() end;
 	config.OnGetKey = config.OnGetKey or function() end;
+	config.OnGetKey1 = config.OnGetKey1 or function() end;
 	
 	local ScreenGui = Instance.new("ScreenGui")
 	local MainFrame = Instance.new("Frame")
@@ -55,10 +56,14 @@ function module:Auth(config)
 	local UIStroke_2 = Instance.new("UIStroke")
 	local TextLabel = Instance.new("TextLabel")
 	local GetAccount = Instance.new("Frame")
+	local GetAccount2 = Instance.new("Frame")
 	local UICorner_5 = Instance.new("UICorner")
 	local UIStroke_3 = Instance.new("UIStroke")
+	local UICorner_6 = Instance.new("UICorner")
+	local UIStroke_4 = Instance.new("UIStroke")
 	local TextLabel_2 = Instance.new("TextLabel")
-
+	local TextLabel_3 = Instance.new("TextLabel")
+	
 	ScreenGui.Parent = module.CoreGui;
 	ScreenGui.ResetOnSpawn = false
 	ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Global;
@@ -68,7 +73,7 @@ function module:Auth(config)
 		if value then
 			module:CreateAnimation(MainFrame,0.75,nil,{
 				BackgroundTransparency = 0.100,
-				Size = UDim2.new(0, 300, 0, 175),
+				Size = UDim2.new(0, 300, 0, 200),
 				Position = UDim2.new(0.5, 0, 0.5, 0)
 			});
 
@@ -125,11 +130,23 @@ function module:Auth(config)
 			module:CreateAnimation(GetAccount,0.45,nil,{
 				BackgroundTransparency = 0.400
 			});
+			
+			module:CreateAnimation(GetAccount2,0.45,nil,{
+				BackgroundTransparency = 0.400
+			});
 
 			module:CreateAnimation(TextLabel_2,0.45,nil,{
 				TextTransparency = 0.250
 			});
 			
+			module:CreateAnimation(TextLabel_3, 0.45, nil, {
+				TextTransparency = 0.250
+				})
+
+			module:CreateAnimation(UIStroke_4, 0.45, nil, {
+					Transparency = 0.35
+			})
+
 			module:CreateAnimation(UIStroke_2,0.45,nil,{
 				Transparency = 0.35
 			});
@@ -215,7 +232,7 @@ function module:Auth(config)
 	MainFrame.BorderColor3 = Color3.fromRGB(0, 0, 0)
 	MainFrame.BorderSizePixel = 0
 	MainFrame.Position = UDim2.new(0.5, 0, 0.5, 15)
-	MainFrame.Size = UDim2.new(0, 275, 0, 150)
+	MainFrame.Size = UDim2.new(0, 275, 0, 200)
 	
 	UICorner.CornerRadius = UDim.new(1,0);
 	UICorner.Parent = MainFrame
@@ -388,11 +405,44 @@ function module:Auth(config)
 	TextLabel_2.Position = UDim2.new(0.5, 0, 0.5, 0)
 	TextLabel_2.Size = UDim2.new(1, -10, 1, -10)
 	TextLabel_2.Font = Enum.Font.GothamMedium
-	TextLabel_2.Text = "Get Key"
+	TextLabel_2.Text = "Get Key (Linkvertise)"
 	TextLabel_2.TextColor3 = Color3.fromRGB(255, 255, 255)
-	TextLabel_2.TextSize = 14.000
+	TextLabel_2.TextSize = 13.400
 	TextLabel_2.TextTransparency = 1
 	TextLabel_2.ZIndex = 3
+	
+	GetAccount2.Name = "GetAccount2"
+	GetAccount2.Parent = MainFrame
+	GetAccount2.AnchorPoint = Vector2.new(0.5, 0)
+	GetAccount2.BackgroundColor3 = Color3.fromRGB(39, 39, 39)
+	GetAccount2.BackgroundTransparency = 1
+	GetAccount2.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	GetAccount2.BorderSizePixel = 0
+	GetAccount2.Position = UDim2.new(0.5, 0, 0.45, 70)
+	GetAccount2.Size = UDim2.new(0.5, -30, 0, 30)
+	GetAccount2.ZIndex = 2;
+	
+	UICorner_6.CornerRadius = UDim.new(0, 3)
+	UICorner_6.Parent = GetAccount2
+
+	UIStroke_4.Transparency = 1
+	UIStroke_4.Color = Color3.fromRGB(65, 65, 65)
+	UIStroke_4.Parent = GetAccount2
+	
+	TextLabel_3.Parent = GetAccount2
+	TextLabel_3.AnchorPoint = Vector2.new(0.5, 0.5)
+	TextLabel_3.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	TextLabel_3.BackgroundTransparency = 1.000
+	TextLabel_3.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	TextLabel_2.BorderSizePixel = 0
+	TextLabel_3.Position = UDim2.new(0.5, 0, 0.5, 0)
+	TextLabel_3.Size = UDim2.new(1, -10, 1, -10)
+	TextLabel_3.Font = Enum.Font.GothamMedium
+	TextLabel_3.Text = "Get Key (Lootlabs)"
+	TextLabel_3.TextColor3 = Color3.fromRGB(255, 255, 255)
+	TextLabel_3.TextSize = 14.000
+	TextLabel_3.TextTransparency = 1
+	TextLabel_3.ZIndex = 3
 	
 	toggle_ui(true);
 	
@@ -459,6 +509,24 @@ function module:Auth(config)
 				BackgroundColor3 = Color3.fromRGB(39, 39, 39)
 			});
 		end);
+	end;
+	
+	do
+	local AccountButton2 = module:NewInput(GetAccount2,function()
+		config.OnGetKey1(tbl);
+	end)
+
+	AccountButton2.MouseEnter:Connect(function()
+		module:CreateAnimation(GetAccount2,0.35,nil,{
+			BackgroundColor3 = Color3.fromRGB(85, 85, 85)
+		});
+	end);
+
+	AccountButton2.MouseLeave:Connect(function()
+		module:CreateAnimation(GetAccount2,0.35,nil,{
+			BackgroundColor3 = Color3.fromRGB(39, 39, 39)
+		});
+	end);
 	end;
 	
 	function tbl:Await()
