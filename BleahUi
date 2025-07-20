@@ -213,58 +213,66 @@ local Category = {}; Category.__index = Category; do
 		end
 		
 		function Module:CreateSlider(data)
-    local title = data.Title
-    local range = data.Range
-    local callback = data.Callback or function() end
-    local value = data.Value or (range[1])
-    local rangeMin = range[1]
-    local rangeMax = range[2]
-    local nonDecimal = data.NonDecimal or false
+			local title = data.Title
+			local range = data.Range
+			local callback = data.Callback or function() end
+			local value = data.Value or (range[1])
+			local rangeMin = range[1]
+			local rangeMax = range[2]
+			local nonDecimal = data.NonDecimal or false
+			
+			local dragging = false
 
-    local dragging = false
+			data.Value = value
 
-    data.Value = value
+			local ui = objects.Slider:Clone()
+			ui.Text.Text = indent..title
+			ui.Parent = self.UI.Dropdown.Frame
 
-    local ui = objects.Slider:Clone()
-    ui.Text.Text = indent..title
-    ui.Parent = self.UI.Dropdown.Frame
+			self.UI.Dropdown.Size += UDim2.new(0, 0, 0, 23)
 
-    self.UI.Dropdown.Size += UDim2.new(0, 0, 0, 23)
+			data.Update = function()
+				local percentage = (data.Value - range[1]) / (range[2] - range[1])
+				
+				ui.Text.Text = indent..title..": "..(math.round(data.Value * 100) / 100)
+				ui.Frame.Size = UDim2.new(percentage, 0, 1, 0)
+				
+				callback(data.Value)
+			end
 
-    data.Update = function()
-        local percentage = (data.Value - range[1]) / (range[2] - range[1])
-        ui.Text.Text = indent..title..": "..(math.round(data.Value * 100) / 100)
-        ui.Frame.Size = UDim2.new(percentage, 0, 1, 0)
-        callback(data.Value)
-    end
+			data.Update()
+			
+			userInputService.InputChanged:Connect(function(input)
+	if dragging and (input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch) then
+		local pos = input.Position
+		local mouseX = pos.X
+		local boundaries0 = ui.Text.AbsolutePosition.X 
+		local boundaries1 = ui.Text.AbsolutePosition.X + ui.Text.AbsoluteSize.X
+		local at = mouseX - boundaries0
+		local goal = boundaries1 - boundaries0
+		local percentage = math.clamp(at / goal, 0, 1)
+		data.Value = (nonDecimal and math.round or function(v) return v end)(rangeMin + ((rangeMax - rangeMin) * percentage))
+		data.Update()
+	end
+end)
 
-    data.Update()
+			
+			ui.Text.InputBegan:Connect(function(input)
+	if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+		dragging = true
+		local e; e = input.Changed:Connect(function()
+			if input.UserInputState == Enum.UserInputState.End then
+				dragging = false
+				e:Disconnect()
+			end
+		end)
+	end
+end)
 
-    userInputService.InputChanged:Connect(function(input)
-        if dragging and (input.UserInputType == Enum.UserInputType.Touch or input.UserInputType == Enum.UserInputType.MouseMovement) then
-            local pos = input.Position.X
-            local frameStart = ui.Text.AbsolutePosition.X
-            local frameEnd = frameStart + ui.Text.AbsoluteSize.X
-            local relativePos = math.clamp((pos - frameStart) / (frameEnd - frameStart), 0, 1)
-            data.Value = (nonDecimal and math.round or function(v) return v end)(rangeMin + (rangeMax - rangeMin) * relativePos)
-            data.Update()
-        end
-    end)
 
-    ui.Text.InputBegan:Connect(function(input)
-        if input.UserInputType == Enum.UserInputType.Touch or input.UserInputType == Enum.UserInputType.MouseButton1 then
-            dragging = true
-        end
-    end)
-
-    ui.Text.InputEnded:Connect(function(input)
-        if input.UserInputType == Enum.UserInputType.Touch or input.UserInputType == Enum.UserInputType.MouseButton1 then
-            dragging = false
-        end
-    end)
-
-    return data
-end
+			return data
+		end
+	end
 	
 	function Category.new(title, icon, root)
 		local self = setmetatable({}, Category)
@@ -366,6 +374,4 @@ function Bleachhack:CreateCategory(title, icon)
 	return Category.new(title, icon, self)
 end
 
-
 return Bleachhack
-
