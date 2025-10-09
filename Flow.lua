@@ -1349,38 +1349,36 @@ function Library:create_ui()
             end)
 
             function ModuleManager:create_paragraph(settings: any)
-                LayoutOrderModule = LayoutOrderModule + 1;
+                LayoutOrderModule = LayoutOrderModule + 1
 
                 local ParagraphManager = {}
-                
+
                 if self._size == 0 then
-                    self._size = 11
+                    self._size = 690
                 end
-            
+
                 self._size += settings.customScale or 70
-            
+
                 if ModuleManager._state then
                     Module.Size = UDim2.fromOffset(241, 93 + self._size)
                 end
-            
+
                 Options.Size = UDim2.fromOffset(241, self._size)
-            
-                -- Container Frame
+
                 local Paragraph = Instance.new('Frame')
                 Paragraph.BackgroundColor3 = Color3.fromRGB(32, 38, 51)
                 Paragraph.BackgroundTransparency = 0.1
-                Paragraph.Size = UDim2.new(0, 207, 0, 30) -- Initial size, auto-resized later
+                Paragraph.Size = UDim2.new(0, 207, 0, 30)
                 Paragraph.BorderSizePixel = 0
                 Paragraph.Name = "Paragraph"
-                Paragraph.AutomaticSize = Enum.AutomaticSize.Y -- Support auto-resizing height
+                Paragraph.AutomaticSize = Enum.AutomaticSize.Y
                 Paragraph.Parent = Options
-                Paragraph.LayoutOrder = LayoutOrderModule;
-            
+                Paragraph.LayoutOrder = LayoutOrderModule
+
                 local UICorner = Instance.new('UICorner')
                 UICorner.CornerRadius = UDim.new(0, 4)
                 UICorner.Parent = Paragraph
-            
-                -- Title Label
+
                 local Title = Instance.new('TextLabel')
                 Title.FontFace = Font.new('rbxasset://fonts/families/GothamSSm.json', Enum.FontWeight.SemiBold, Enum.FontStyle.Normal)
                 Title.TextColor3 = Color3.fromRGB(210, 210, 210)
@@ -1393,19 +1391,18 @@ function Library:create_ui()
                 Title.TextSize = 12
                 Title.AutomaticSize = Enum.AutomaticSize.XY
                 Title.Parent = Paragraph
-            
-                -- Body Text
+
                 local Body = Instance.new('TextLabel')
                 Body.FontFace = Font.new('rbxasset://fonts/families/GothamSSm.json', Enum.FontWeight.Regular, Enum.FontStyle.Normal)
                 Body.TextColor3 = Color3.fromRGB(180, 180, 180)
-                
+
                 if not settings.rich then
                     Body.Text = settings.text or "Skibidi"
                 else
                     Body.RichText = true
                     Body.Text = settings.richtext or "<font color='rgb(255,0,0)'>Lnx</font> user"
                 end
-                
+
                 Body.Size = UDim2.new(1, -10, 0, 20)
                 Body.Position = UDim2.new(0, 5, 0, 30)
                 Body.BackgroundTransparency = 1
@@ -1415,19 +1412,30 @@ function Library:create_ui()
                 Body.TextWrapped = true
                 Body.AutomaticSize = Enum.AutomaticSize.XY
                 Body.Parent = Paragraph
-            
-                -- Hover effect for Paragraph (optional)
+
                 Paragraph.MouseEnter:Connect(function()
                     TweenService:Create(Paragraph, TweenInfo.new(0.3, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {
                         BackgroundColor3 = Color3.fromRGB(42, 50, 66)
                     }):Play()
                 end)
-            
+
                 Paragraph.MouseLeave:Connect(function()
                     TweenService:Create(Paragraph, TweenInfo.new(0.3, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {
                         BackgroundColor3 = Color3.fromRGB(32, 38, 51)
                     }):Play()
                 end)
+
+                function ParagraphManager:SetText(newText)
+                    Body.RichText = false
+                    Body.Text = newText or ""
+                end
+                function ParagraphManager:SetTitle(newTitle)
+                    Title.Text = newTitle
+                end
+                function ParagraphManager:SetRichText(richText)
+                    Body.RichText = true
+                    Body.Text = richText
+                end
 
                 return ParagraphManager
             end
