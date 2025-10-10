@@ -64,7 +64,6 @@ function module:Auth(config)
 	local TextLabel_2 = Instance.new("TextLabel")
 	local TextLabel_3 = Instance.new("TextLabel")
 
-	ScreenGui.Name = "Lnx"
 	ScreenGui.Parent = module.CoreGui;
 	ScreenGui.ResetOnSpawn = false
 	ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Global;
