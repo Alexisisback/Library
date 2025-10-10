@@ -1353,8 +1353,9 @@ function Library:create_ui()
 
                 local ParagraphManager = {}
 
+                local size = self._size
                 if self._size == 0 then
-                    self._size = 690
+                    self._size = 21
                 end
 
                 self._size += settings.customScale or 70
@@ -1366,6 +1367,7 @@ function Library:create_ui()
                 Options.Size = UDim2.fromOffset(241, self._size)
 
                 local Paragraph = Instance.new('Frame')
+                Paragraph.ClipsDescendants = false
                 Paragraph.BackgroundColor3 = Color3.fromRGB(32, 38, 51)
                 Paragraph.BackgroundTransparency = 0.1
                 Paragraph.Size = UDim2.new(0, 207, 0, 30)
@@ -1403,7 +1405,7 @@ function Library:create_ui()
                     Body.Text = settings.richtext or "<font color='rgb(255,0,0)'>Lnx</font> user"
                 end
 
-                Body.Size = UDim2.new(1, -10, 0, 20)
+                Body.Size = UDim2.new(1, -10, 0, settings.body or 40)
                 Body.Position = UDim2.new(0, 5, 0, 30)
                 Body.BackgroundTransparency = 1
                 Body.TextXAlignment = Enum.TextXAlignment.Left
