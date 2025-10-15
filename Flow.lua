@@ -1596,7 +1596,7 @@ function Library:create_ui()
                     self._size = 11
                 end
             
-                self._size += 32
+                self._size += settings.customScale or 38
             
                 if ModuleManager._state then
                     Module.Size = UDim2.fromOffset(241, 93 + self._size)
@@ -2724,5 +2724,3 @@ function Library:create_ui()
 
     return self
 end
-
-return Library
