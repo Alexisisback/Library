@@ -2365,11 +2365,9 @@ function Library:create_ui()
                 
                         Library._config._flags[settings.flag] = convertStringToTable(CurrentOption.Text);
                     else
-                        -- For single dropdown, just set the CurrentOption.Text to the selected option
                         CurrentOption.Text = (typeof(option) == "string" and option) or option.Name
                         for _, object in Options:GetChildren() do
                             if object.Name == "Option" then
-                                -- Only update transparency for actual option text buttons
                                 if object.Text == CurrentOption.Text then
                                     object.TextTransparency = 0.2
                                 else
@@ -2380,10 +2378,8 @@ function Library:create_ui()
                         Library._config._flags[settings.flag] = option
                     end
                 
-                    -- Save the configuration state
                     Config:save(game.GameId, Library._config)
                 
-                    -- Callback with the updated option(s)
                     settings.callback(option)
                 end
                 
