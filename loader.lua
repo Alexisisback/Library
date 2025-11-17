@@ -438,7 +438,7 @@ function module:Auth(config)
 	TextLabel_3.Position = UDim2.new(0.5, 0, 0.5, 0)
 	TextLabel_3.Size = UDim2.new(1, -10, 1, -10)
 	TextLabel_3.Font = Enum.Font.GothamMedium
-	TextLabel_3.Text = "Get Key (lootlabs)"
+	TextLabel_3.Text = "Get Key (Work.ink)"
 	TextLabel_3.TextColor3 = Color3.fromRGB(255, 255, 255)
 	TextLabel_3.TextSize = 14.000
 	TextLabel_3.TextTransparency = 1
